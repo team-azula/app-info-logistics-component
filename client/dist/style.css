@@ -1,0 +1,178 @@
+body {
+  background-color: #eeeeee;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.info {
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+  border-radius: 2px;
+  margin-right: 200px;
+  margin-left: 200px;
+  background-color: white;
+  display: grid;
+  min-width:720px;
+  max-width:720px;
+  grid-template:
+    "image name . editorsChoice" 60px
+    "image author category rating" 30px
+    "image . . ." 40px
+    "image ads ads ." 50px
+    "image wishlist . install-button" 40px
+    "add-info add-info add-info add-info" 160px
+    / 31% 16% 16% 34%;
+}
+
+.add-info {
+  grid-area: add-info;
+  display: grid;
+  grid-template:
+    ". add-info-title add-info-title . ." 65px
+    ". currentVersion size installs updatedAt" 95px
+    / 8% 23% 16% 16% 34%;
+}
+
+.personLogo {
+  height:10px;
+  width:10px;
+}
+
+.image {
+  height: 180px;
+  width: 180px;
+  grid-area: image;
+  margin: 25px;
+}
+
+.editorsChoice {
+  grid-area: editorsChoice;
+  justify-self: end;
+  align-self: end;
+  color: #8d8d8d;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.name {
+  grid-area: name;
+  justify-self: start;
+  align-self: end;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.author {
+  grid-area: author;
+  justify-self: start;
+  align-self: center;
+  font-weight: 700;
+  color: #33691e;
+  font-family: 'Roboto', sans-serif;
+  font-size:13px;
+}
+
+.size {
+  grid-area: size;
+  font-family: 'Roboto', sans-serif;
+  font-size:13px;
+  align-self:center;
+}
+
+.category {
+  grid-area: category;
+  font-weight: 700;
+  color: #33691e;
+  font-family: 'Roboto', sans-serif;
+  font-size:13px;
+  align-self:center;
+}
+
+.contains{
+  font-weight:700;
+}
+.ads {
+  grid-area: ads;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  color: #8d8d8d;
+  align-self:end;
+}
+
+.caution{
+  height:16px;
+  width:16px;
+}
+
+.rating-me {
+  grid-area: rating;
+  justify-self: end;
+  color: #8d8d8d;
+  font-size: 13px;
+  font-weight: 300;
+  align-self:center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.updatedAt {
+  grid-area: updatedAt;
+  font-family: 'Roboto', sans-serif;
+  font-size:13px;
+  align-self: center;
+  justify-self: center;
+}
+
+.installs {
+  grid-area: installs;
+  font-family: 'Roboto', sans-serif;
+  font-size:13px;
+  align-self:center;
+}
+
+.wishlist {
+  grid-area: wishlist;
+  color: #33691e;
+  align-self: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  justify-self: center;
+}
+
+.add-info-title {
+  grid-area: add-info-title;
+  font-family: 'Roboto', sans-serif;
+  font-size:15px;
+  align-self:end;
+}
+
+.currentVersion {
+  grid-area: currentVersion;
+  font-family: 'Roboto', sans-serif;
+  font-size:13px;
+  align-self:center;
+}
+
+.install-button {
+  background-color: #689f38;
+  color: #fff;
+  border-radius: 4px;
+  grid-area: install-button;
+  height: 36px;
+  width: 76px;
+  justify-self: end;
+  align-self:center;
+  font-family: 'Roboto', sans-serif;
+  font-size:14px;
+}
+
+.wishlistLogo {
+  height:16px;
+  width:16px;
+  color: #33691e;
+}
+
+.title {
+  font-weight:700;
+}

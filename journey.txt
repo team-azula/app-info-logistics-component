@@ -1,0 +1,70 @@
+**make sure to turn on server and webpack at the start of each session.**
+(3/11/2020)
+1. Copied all files from HRR FEC repo and put into my service folder.
+(3/12/2020)
+2. Installed all dependencies I know that I will need.
+  -made sure to differenciate between my devDepen and my regular Depen.
+  -webpack you either need a .babelrc file to hold presets or try to add them in as options in webpack.config.js (not sure which one worked, but did both and webpack was transpiling files correctly after).
+  -webpack needs its webpack.config.js to know where to enter and output its files.
+
+3. Create starting files in server and in client to make sure webpack is transpiling files correctly and server is able to render the files in the client.
+
+4. Created a database in database/index.js and the schema and model in database/app.js and the seed.js files uses faker to generate random data points for 100 apps.
+  -running db:setup will run our seed.js file which will create our database in mongo and add the 100 apps.
+(3/13/2020)
+  -made sure our server can retrieve data from database upon http request and respond with app information based on an random app id
+(3/16/2020)
+  -made changes to database to include a rating property, current version, and # of ratings and fixed tests.
+  -used a css flex box layout to structure my data in react component. things got really messy, so might try a different approach.
+  -split my info component from my main index.jsx component
+(3/17/2020-3/22/2020)
+  -switched from flexbox layout to css grid layout which made it alot easier to organize all of my data points. (this process took a long time)
+  -split rating compoennt and additional info compoennt from info component to clean up and organize code a little better
+  -if adding grid to a component that renders another component, the container grid will not apply to the child component, you would have to create a separate grid
+  -added implementation of the review stars to reflect rating of app and editors choice to reflect if the app was an editors' choice
+  -created tests for server and client
+
+(3/26/2020)
+
+  -deploying info service
+  ** anytime you are making changes, do not forget to run npm run build to update bundle.js **
+  ** everytime you stop and start your instance, you will get a new IP address **
+    -go to aws, create an s3 bucket of my service's files and make them public
+    -go to aws, create a new instance of ec2
+      -after you launch your instance, you can easily connect to your (terminal) browser based ssh connection by pressing connect on the aws page and the ec2 instance connect option(3rd)
+    -first you want to install node by following aws docs
+    -run sudo yum update in terminal to update applications installed on a system
+    -we used mongo DB, follow these steps to install mongoDB:
+      -start on terminal
+      -cd /etc/yum.repos.d
+      -vi mongodb-org-4.2.repo
+      -copy the stuff from how install mongoDB on to ec
+      -hit escape,
+      -type   :w !sudo tee %  hit enter then hit amazon linux
+      -type   :q!  hit enter
+      -$ cd
+      -sudo yum install -y mongodb-org
+      -sudo systemctl start mongod
+    -now you would want to connect your s3 bucket files to your ec2 instance
+      -run wget (object URL of s3 bucket) this will download the zip file to your ec2 instance
+      -unzip your file by running unzip file_name
+    -run npm install like normal to download dependencies
+    -on aws ec2 make sure to add the port your server is set to listen on (3004)
+
+(3/27/2020)
+  -had to make changes to client to be able to manipulate URL params
+    -added: let url = new URL(window.location);
+            let params = new URLSearchParams(url.search);
+            let id = params.get('id')
+    -updated the data passed in as well to take in the new id from ^
+    -this allows us to change the id we want to grab from DB from the URL
+      -ex. localhost:3004/?id=5 will grab app with id 5
+           localhost:3004/?id=10 will grab app with id 10
+    -because the ID was hardcoded before I had to make a small change in my App.jsx file to either take in this id, but if none is specified, then we display just an initial app (this case: 1)
+
+  -deploying info service (cont.)
+    -made the same changes that I made to my client on my local comp to the ec2 from above^
+    -also made the way I sent my axios get request to be relative, as well as the way my server responds to get requests as relative
+      -ex. in client axios get request `/apps/${this.state.id}`
+
+  deployed service now works and renders the service!!
