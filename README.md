@@ -14,6 +14,7 @@
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
+1. [API](#API)
 
 ## Usage
 ```sh
@@ -39,3 +40,21 @@ npm install -g webpack
 npm install
 ```
 
+## API
+
+GET -
+endpoint : /apps/:appid
+result: Pulls app data from the database depending on appid
+
+POST -
+endpoint : /apps/:appid
+result: Posts app data to the database using the appid as the id in database
+
+PUT -
+endpoint : /apps/:appid
+result: Changes the author field for the identified app based on appid to "Warner Lin"
+
+
+DELETE -
+endpoint : /apps/:appid
+result: Deletes app data from the database
