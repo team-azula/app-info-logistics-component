@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database/index.js');
-const App = require('../database/App.js');
+const db = require('../postgres_database/index.js');
+const App = require('../postgres_database/App.js');
 const faker = require('faker');
 
 
