@@ -1,7 +1,7 @@
 var ExpressCassandra = require('express-cassandra');
 
 
-const cassandra_database = ExpressCassandra.createClient({
+const models = ExpressCassandra.createClient({
   clientOptions: {
     contactPoints: ['localhost'],
     protocalOptions: { port: 9042 },
@@ -9,7 +9,7 @@ const cassandra_database = ExpressCassandra.createClient({
     ormOptions: {
       defaultReplicationStrategy : {
           class: 'SimpleStrategy',
-          replication_factor: 1
+          replication_factor: 1,
           queryOptions: {consistency: ExpressCassandra.consistencies.one}
         },
         ormOptions: {
@@ -23,7 +23,7 @@ const cassandra_database = ExpressCassandra.createClient({
   }
 });
 
-var MyModel = models.loadSchema('',{
+var MyModel = models.loadSchema('Applications',{
       fields:{
           id : 'int',
           name : 'text',
@@ -42,8 +42,7 @@ var MyModel = models.loadSchema('',{
       key:["id"]
     })
 
-// MyModel or models.instance.Person can now be used as the model instance
-console.log(models.instance.cassandra_database === MyModel);
+console.log(models.instance.Applications === MyModel);
 
 // sync the schema definition with the cassandra database table
 // if the schema has not changed, the callback will fire immediately

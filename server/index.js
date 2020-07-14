@@ -5,6 +5,9 @@ const faker = require('faker');
 //Postgres
 const db = require('../postgres_database/index.js');
 
+//Cassandra
+// const db = require('../cassandra_database/ApplicationsModel.js');
+
 
 const app = express();
 const PORT = 3004;
