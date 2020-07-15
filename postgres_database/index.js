@@ -68,6 +68,6 @@ sequelize.authenticate()
       modelName: 'Application',
     });
 
-  sequelize.sync({force: true});
+  sequelize.sync();
 
   module.exports.Application = Application;

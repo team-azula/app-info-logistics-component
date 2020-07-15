@@ -52,3 +52,5 @@ MyModel.syncDB(function(err, result) {
     // result == true if any database schema was updated
     // result == false if no schema change was detected in your models
 });
+
+//bash is entry if we want our terminal to open -d

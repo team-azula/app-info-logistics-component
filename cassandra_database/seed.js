@@ -2,7 +2,10 @@
 const cassandra = require('cassandra-driver');
 const executeConcurrent = cassandra.concurrent.executeConcurrent;
 const Uuid = cassandra.types.Uuid;
+const faker = require('faker');
 
+
+var start = Date.now();
 
 
 const client = new cassandra.Client({ contactPoints: ['127.0.0.1'], localDataCenter: 'datacenter1' });
@@ -35,24 +38,42 @@ async function example() {
   // The maximum amount of async executions that are going to be launched in parallel
   // at any given time
   const concurrencyLevel = 32;
+  const promises = new Array(concurrencyLevel);
 
-  // Use an Array with 10000 different values
-  const values = Array.from(new Array(1).keys()).map(x => [ 1, 'SampleApp', 'Warner Lin', 'www.google.com', 'Business', Date.now(), '234 MB', true, 2.3, 5.2, 5.22, 121, Date.now()]);
-  console.log(values)
+  const info = {
+    totalLength: 10000000,
+    counter: 0
+  };
 
-  // const values = Array.from(new Array(1).keys()).map(x => [ 1, 'SampleApp', 'Warner Lin', 'www.google.com', 'Business', Date.now(), '234 MB', true, 2.3, 5.2, 5.22, 121, Date.now()]);
-  // console.log(values)
-
+  // Launch in parallel n async operations (n being the concurrency level)
+  for (let i = 0; i < concurrencyLevel; i++) {
+    promises[i] = executeOneAtATime(info);
+  }
 
   try {
+    // The n promises are going to be resolved when all the executions are completed.
+    await Promise.all(promises);
 
-    const query = 'INSERT INTO Applications (id, name, author, imageUrl, category, updatedAt, size, editorChoice, rating, ratings, currentVersion, installs, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    await executeConcurrent(client, query, values);
-
-    console.log(`Finished executing ${values.length} queries with a concurrency level of ${concurrencyLevel}.`);
+    console.log(`Finished executing ${info.totalLength} queries with a concurrency level of ${concurrencyLevel}.`);
 
   } finally {
     await client.shutdown();
+  }
+}
+
+async function executeOneAtATime(info) {
+  const query = 'INSERT INTO Applications (id, name, author, imageUrl, category, updatedAt, size, editorChoice, rating, ratings, currentVersion, installs, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const options = { prepare: true, isIdempotent: true };//WTF is this?
+
+  while (info.counter++ < info.totalLength) {
+    var fullName = faker.name.firstName() + ' ' + faker.name.lastName();
+    var categories = ['Social', 'Games', 'Finance', 'Lifestyle', 'Productivity'];
+    var randomIndex = Math.floor((Math.random() * 5));
+    var randomVersion = Math.floor(Math.random() * (1000 - 100) + 100) / 100;
+    var randomRating = (Math.floor((Math.random() * 10) + 1))/2;
+
+    const params = [ info.counter,faker.commerce.product(), fullName, `https://loremflickr.com/160/160?lock=${Math.floor(Math.random() * 1000)}`, categories[randomIndex], faker.date.past(), faker.random.number() + 'MB', faker.random.boolean(), randomRating, faker.random.number(), randomVersion, faker.random.number(), faker.date.past()];
+    await client.execute(query, params, options);
   }
 }
 
@@ -60,3 +81,59 @@ example();
 
 // Exit on unhandledRejection
 process.on('unhandledRejection', (reason) => { throw reason; });
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // const values = Array.from(new Array(1).keys()).map(x => [ 1, 'SampleApp', 'Warner Lin', 'www.google.com', 'Business', Date.now(), '234 MB', true, 2.3, 5.2, 5.22, 121, Date.now()]);
+  // console.log(values)
+
+  //   try {
+
+//     const query = 'INSERT INTO Applications (id, name, author, imageUrl, category, updatedAt, size, editorChoice, rating, ratings, currentVersion, installs, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+//     await executeConcurrent(client, query, values);
+
+//     console.log(`Finished executing ${values.length} queries with a concurrency level of ${concurrencyLevel}.`);
+
+//   } finally {
+//     await client.shutdown();
+//   }
+// }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+// function putDocumentsIn(i) {
+//   while( i <= 10000000 ) {
+//     var fullName = faker.name.firstName() + ' ' + faker.name.lastName();
+//     var categories = ['Social', 'Games', 'Finance', 'Lifestyle', 'Productivity'];
+//     var randomIndex = Math.floor((Math.random() * 5));
+//     var randomVersion = Math.floor(Math.random() * (1000 - 100) + 100) / 100;
+//     var randomRating = (Math.floor((Math.random() * 10) + 1))/2;
+
+//     const values = Array.from(new Array(400000).keys()).map(x => [ i, faker.commerce.product(), fullName, `https://loremflickr.com/160/160?lock=${Math.floor(Math.random() * 1000)}`, categories[randomIndex], faker.date.past(), faker.random.number() + 'MB', faker.random.boolean(), randomRating, faker.random.number(), randomVersion, faker.random.number(), faker.date.past()]);
+
+//     try {
+//       const query = 'INSERT INTO Applications (id, name, author, imageUrl, category, updatedAt, size, editorChoice, rating, ratings, currentVersion, installs, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+//       await executeConcurrent(client, query, values);
+
+//       console.log(`Finished inserting document id ${i} with a concurrency level of ${concurrencyLevel}.`);
+//     }finally {
+//       i--;
+//     }
+//   }
+//   finally {
+//     await
+//     client.shutdown();
+//   }
+// }
+
+// putDocumentsIn(1)
+
+// }
