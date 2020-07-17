@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 .# Similar Apps Module
+=======
+# Similar Apps Module
+>>>>>>> 89b8d023e2b00b5a10b71ee1640aefef59911aa2
 
 ## PostgreSQL
 
