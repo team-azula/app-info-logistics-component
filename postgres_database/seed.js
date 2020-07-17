@@ -3,7 +3,7 @@ const faker = require('faker');
 
 
 const insertSampleApps = function() {
-  for(var i = 1; i <= 10000000 ; i++) {
+  for(var i = 1; i <= 100 ; i++) {
     var fullName = faker.name.firstName() + ' ' + faker.name.lastName();
     var categories = ['Social', 'Games', 'Finance', 'Lifestyle', 'Productivity'];
     var randomIndex = Math.floor((Math.random() * 5));

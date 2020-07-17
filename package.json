@@ -23,6 +23,7 @@
     "fast-csv": "^4.3.1",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.4",
+    "newrelic": "^6.11.0",
     "nodemon": "^2.0.2",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",

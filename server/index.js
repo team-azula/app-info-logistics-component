@@ -1,3 +1,4 @@
+const nr = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const faker = require('faker');
@@ -5,8 +6,6 @@ const faker = require('faker');
 //Postgres
 const db = require('../postgres_database/index.js');
 
-//Cassandra
-// const db = require('../cassandra_database/ApplicationsModel.js');
 
 
 const app = express();
@@ -22,8 +21,8 @@ app.use(function(req, res, next) {
 });
 
 app.get('/apps/:appid', (req, res) => {
-  App.find(
-    {id: req.params.appid})
+  db.Application.findOne({where:
+    {id: req.params.appid}})
   .then(
     data => {
       res.send(data);
@@ -37,9 +36,10 @@ app.get('/apps/:appid', (req, res) => {
 })
 
 app.delete('/apps/:appid', (req, res) => {
-  App.findOneAndDelete(
-    {id: req.params.appid})
-  .then(() => {
+  db.Application.findOne({where:
+    {id: req.params.appid}})
+  .then((result) => {
+    result.destroy()
     res.send('Deleted')
     }
   )
@@ -52,10 +52,9 @@ app.delete('/apps/:appid', (req, res) => {
   )
 })
 
-
   //may need to change {author: "Warner Lin"} to req.body?
   app.put('/apps/:appid', (req, res) => {
-    App.findOneAndUpdate({id: req.params.appid}, {author: "Warner Lin"})
+    db.Application.update({author: "Warner Lin"}, {where:{id: req.params.appid}})
     .then(
       data => {
         res.send(data);
@@ -92,7 +91,7 @@ app.post('/apps/:appid', (req, res) => {
     currentVersion: randomVersion,
     installs : faker.random.number()
   };
-  App.create(obj)
+  db.Application.create(obj)
   .then(
     data => {
       res.send(data);

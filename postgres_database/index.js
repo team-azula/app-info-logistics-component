@@ -31,8 +31,9 @@ sequelize.authenticate()
         type : DataTypes.STRING,
         allowNull: false,
       },
-      updatedAt : {
-        type : DataTypes.STRING,
+      updatedAt : {//When Posting/Putting, I get this errror updatedAt cannot be an array or an object. However, to seed the db, it looks like I need datatype string for faker.date.past to work?
+        // type : DataTypes.STRING,
+        type : DataTypes.DATE,
         allowNull: false,
       },
       size : {
@@ -59,8 +60,9 @@ sequelize.authenticate()
         type : DataTypes.INTEGER,
         allowNull: false,
       },
-      createdAt : {
-        type : DataTypes.STRING,
+      createdAt : {//When Posting/Putting, I get this errror updatedAt cannot be an array or an object. However, to seed the db, it looks like I need datatype string for faker.date.past to work?
+        // type : DataTypes.STRING,
+        type : DataTypes.DATE,
         allowNull: false,
       },
     }, {

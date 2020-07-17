@@ -5,8 +5,6 @@ const Uuid = cassandra.types.Uuid;
 const faker = require('faker');
 
 
-var start = Date.now();
-
 
 const client = new cassandra.Client({ contactPoints: ['127.0.0.1'], localDataCenter: 'datacenter1' });
 
@@ -81,59 +79,3 @@ example();
 
 // Exit on unhandledRejection
 process.on('unhandledRejection', (reason) => { throw reason; });
-
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // const values = Array.from(new Array(1).keys()).map(x => [ 1, 'SampleApp', 'Warner Lin', 'www.google.com', 'Business', Date.now(), '234 MB', true, 2.3, 5.2, 5.22, 121, Date.now()]);
-  // console.log(values)
-
-  //   try {
-
-//     const query = 'INSERT INTO Applications (id, name, author, imageUrl, category, updatedAt, size, editorChoice, rating, ratings, currentVersion, installs, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-//     await executeConcurrent(client, query, values);
-
-//     console.log(`Finished executing ${values.length} queries with a concurrency level of ${concurrencyLevel}.`);
-
-//   } finally {
-//     await client.shutdown();
-//   }
-// }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-// function putDocumentsIn(i) {
-//   while( i <= 10000000 ) {
-//     var fullName = faker.name.firstName() + ' ' + faker.name.lastName();
-//     var categories = ['Social', 'Games', 'Finance', 'Lifestyle', 'Productivity'];
-//     var randomIndex = Math.floor((Math.random() * 5));
-//     var randomVersion = Math.floor(Math.random() * (1000 - 100) + 100) / 100;
-//     var randomRating = (Math.floor((Math.random() * 10) + 1))/2;
-
-//     const values = Array.from(new Array(400000).keys()).map(x => [ i, faker.commerce.product(), fullName, `https://loremflickr.com/160/160?lock=${Math.floor(Math.random() * 1000)}`, categories[randomIndex], faker.date.past(), faker.random.number() + 'MB', faker.random.boolean(), randomRating, faker.random.number(), randomVersion, faker.random.number(), faker.date.past()]);
-
-//     try {
-//       const query = 'INSERT INTO Applications (id, name, author, imageUrl, category, updatedAt, size, editorChoice, rating, ratings, currentVersion, installs, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-//       await executeConcurrent(client, query, values);
-
-//       console.log(`Finished inserting document id ${i} with a concurrency level of ${concurrencyLevel}.`);
-//     }finally {
-//       i--;
-//     }
-//   }
-//   finally {
-//     await
-//     client.shutdown();
-//   }
-// }
-
-// putDocumentsIn(1)
-
-// }
