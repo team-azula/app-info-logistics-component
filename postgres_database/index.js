@@ -3,8 +3,10 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const sequelize = new Sequelize('googleapps', 'postgres', '5432', {
   host: 'localhost',
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 });
+
 
 sequelize.authenticate()
   .then(function(errors) {

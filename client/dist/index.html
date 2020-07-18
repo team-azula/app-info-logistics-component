@@ -14,8 +14,13 @@
     <script>
 //example url: http://localhost:3004/?id=${id}
       let url = new URL(window.location);
+      console.log(window.location)
+      console.log(url)
       let params = new URLSearchParams(url.search);
+      console.log(params)
+      console.log(url.search)
       let appid = params.get('id')
+      console.log(appid)
       ReactDOM.render(
         React.createElement(App1, {id: appid} , null),
         document.getElementById('root')
