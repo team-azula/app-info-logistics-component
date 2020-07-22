@@ -5,7 +5,7 @@ import { sleep } from 'k6';
 var id = Math.floor(Math.random() * 10000000);
 
 export let options = {
-  vus: 100,
+  vus: 1000,
   duration: '300s',
 };
 
@@ -20,3 +20,4 @@ export default function() {
 //   sleep(1);
 // }
 
+//In Terminal Run $ k6 run script.js

@@ -10,7 +10,7 @@ const sequelize = new Sequelize('googleapps', 'postgres', '5432', {
 
 sequelize.authenticate()
   .then(function(errors) {
-    console.log('Connection has been established successfully.')
+    console.log('DB Connection has been established successfully.')
   })
   .catch(function(errors) {console.log('Unable to connect to the database:', errors)})
 
