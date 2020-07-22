@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
 
-const sequelize = new Sequelize('googleapps', 'postgres', '5432', {
-  host: 'localhost',
+const sequelize = new Sequelize('googleapps', 'postgres', 'PostgreSQL123', {
+  host: 'ec2-3-129-59-18.us-east-2.compute.amazonaws.com',
   dialect: 'postgres',
   logging: false
 });
