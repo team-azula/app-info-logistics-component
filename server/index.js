@@ -15,7 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://ec2-3-23-61-11.us-east-2.compute.amazonaws.com:3004');
+  res.header('Access-Control-Allow-Origin', 'http://ec2-18-191-153-38.us-east-2.compute.amazonaws.com:3000');
+  //res.header('Acces-Control-Allow-Origin', 'localhost:3000');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
