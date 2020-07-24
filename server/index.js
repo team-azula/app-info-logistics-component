@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const faker = require('faker');
 
+
+
 //Postgres
 const db = require('../postgres_database/index.js');
 
@@ -36,6 +38,10 @@ app.get('/apps/:appid', (req, res) => {
         console.log(err);
       }
     })
+})
+
+app.get('/loaderio-e58afe7aa43dda45f66822fe09f14331/', (req, res) => {
+  res.send('loaderio-e58afe7aa43dda45f66822fe09f14331')
 })
 
 //WL NOTE: NEED to Optimize get requests - use caching?
